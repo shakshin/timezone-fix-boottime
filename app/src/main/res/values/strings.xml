@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TimeZone Boot Fixer</string>
+    <string name="apply_now">Apply now</string>
+    <string name="apply_boot">Apply after device boot</string>
+    <string name="selected_zone">"Selected zone: "</string>
+    <string name="select_zone">Select your time zone:</string>
+
+</resources>

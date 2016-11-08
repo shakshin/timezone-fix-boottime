@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TimeZone Boot Fixer</string>
+    <string name="apply_boot">Применять после (пере)загрузки</string>
+    <string name="apply_now">Применить</string>
+    <string name="select_zone">"Выберите свой часовой пояс: "</string>
+    <string name="selected_zone">"Выбранный пояс: "</string>
+</resources>
