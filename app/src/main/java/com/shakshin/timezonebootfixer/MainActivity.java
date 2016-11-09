@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences settings = getSharedPreferences("com.shakshin.timezonebootfixer", 0);
 
         activeZone = TimeZone.getTimeZone(settings.getString("timeZone", "Europe/Moscow"));
-        bootTime = settings.getBoolean("applyOnBoot", true);
+        bootTime = settings.getBoolean("applyOnBoot", false);
 
         TextView t = (TextView) findViewById(R.id.textActive);
         CheckBox b = (CheckBox) findViewById(R.id.atBoot);

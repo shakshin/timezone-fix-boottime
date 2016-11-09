@@ -9,6 +9,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
@@ -22,14 +24,30 @@ public class TimeZoneGroupAdapter extends BaseExpandableListAdapter {
     public TimeZoneGroupAdapter()
     {
         super();
+        Map<String, ArrayList<TimeZone>> dataTemp = new HashMap<String, ArrayList<TimeZone>>();
         for (String zoneId : TimeZone.getAvailableIDs()) {
             TimeZone tz = TimeZone.getTimeZone(zoneId);
-            String region = zoneId.split("/")[0];
+            String region = zoneId.contains("/") ? zoneId.split("/")[0] : "Others";
             if (!data.containsKey(region)) {
-                data.put(region, new ArrayList<TimeZone>());
+                dataTemp.put(region, new ArrayList<TimeZone>());
                 keys.add(region);
             }
-            data.get(region).add(tz);
+            dataTemp.get(region).add(tz);
+            Collections.sort(keys, new Comparator<String>() {
+                @Override
+                public int compare(String s1, String s2) {
+                    return s1.compareToIgnoreCase(s2);
+                }
+            });
+            for (String id : keys) {
+                data.put(id, dataTemp.get(id));
+                Collections.sort(data.get(id), new Comparator<TimeZone>() {
+                    @Override
+                    public int compare(TimeZone o1, TimeZone o2) {
+                        return o1.getRawOffset() - o2.getRawOffset();
+                    }
+                });
+            }
         }
     }
 
@@ -85,10 +103,10 @@ public class TimeZoneGroupAdapter extends BaseExpandableListAdapter {
         long minutes = TimeUnit.MILLISECONDS.toMinutes(tz.getRawOffset())
                 - TimeUnit.HOURS.toMinutes(hours);
 
-        String id =  tz.getID().split("/")[1];
+        String id = tz.getID().contains("/") ? tz.getID().split("/")[1] : tz.getID();
 
-        String timeZoneString = String.format("%s (GMT %d:%02d)\n%s", id, hours,
-                minutes, tz.getDisplayName());
+        String timeZoneString = String.format("%s (GMT %s%d:%02d, %s)", tz.getDisplayName(), tz.getRawOffset() >= 0 ? "+" : "", hours,
+                minutes, tz.getID());
 
         TextView view = new TextView(parent.getContext());
         view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT));

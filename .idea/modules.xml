@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TimeZoneBootFixer.iml" filepath="$PROJECT_DIR$/TimeZoneBootFixer.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/timezone-fix-boottime.iml" filepath="$PROJECT_DIR$/timezone-fix-boottime.iml" />
     </modules>
   </component>
 </project>
